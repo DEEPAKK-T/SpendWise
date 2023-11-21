@@ -22,5 +22,8 @@
   "homepage": "https://github.com/DEEPAKK-T/SpendWise#readme",
   "devDependencies": {
     "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "pg": "^8.11.3"
   }
 }
