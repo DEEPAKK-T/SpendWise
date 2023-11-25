@@ -10,6 +10,13 @@ const UserModel = sequelize.define("users", {
         type : DataTypes.STRING,
         allowNull : false,
     },
+    email : {
+        type : DataTypes.STRING,
+        allowNull : false,
+        validate: {
+            isEmail: true, // built-in isEmail validator for basic email format validation
+          },
+    },
     usertype : {
         type : DataTypes.STRING,
         allowNull : false,

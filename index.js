@@ -3,6 +3,7 @@ const Db = require("./Db/database")
 const ExpenseController = require("./Controllers/ExpenseController")
 const Utils = require("./Utils/Util")
 const UserController = require("./Controllers/UsersController")
+const LoginController = require("./Controllers/LoginController")
 
 // const database = new Database()
 
@@ -144,6 +145,20 @@ server = http.createServer(async function (req, res) {
                 // set the status code and content-type
                 res.writeHead(200, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({ "message": "User deleted successfully", id: userId }));
+
+            } catch (error) {
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ "message": error.message }))
+            }
+            break;
+        //POST /api/users/login
+        case req.url == "/api/users/login" && req.method == "POST":
+            try {
+                const userLoginData = await Utils.getRequestData(req);
+                const loggedInUser = await LoginController.Login(userLoginData);
+                // set the status code and content-type
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify(loggedInUser));
 
             } catch (error) {
                 res.writeHead(404, { "Content-Type": "application/json" });
