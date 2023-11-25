@@ -86,7 +86,27 @@ server = http.createServer(async function (req, res) {
             break;
         //POST /api/users
         case req.url == "/api/users" && req.method == "POST":
+            const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
             const userData = await Utils.getRequestData(req);
+            const username = userData.username;
+            if(username.length < 3){
+                res.writeHead(400, { "Content-Type": "application/json" })
+                res.end(JSON.stringify({
+                    message : "Username should contain atleast 3 characters"
+                }))
+            } else if(username.length > 16){
+                res.writeHead(400, { "Content-Type": "application/json" })
+                res.end(JSON.stringify({
+                    message : "More that 15 characters are not allowed for username"
+                }))
+            } else if(username.indexOf(" ") >= 0){
+                res.writeHead(400, { "Content-Type": "application/json" })
+                res.end(JSON.stringify({ message: "White spaces are not allowed for username" }))
+            }
+            else if (specialChars.test(username)){
+                res.writeHead(400, { "Content-Type": "application/json" })
+                res.end(JSON.stringify({ message: "Special Characters are not allowed for username" }))
+            }
             const createUser = await UserController.CreateNewUser(userData);
             // set the status code and content-type
             res.writeHead(201, { "Content-Type": "application/json" });
