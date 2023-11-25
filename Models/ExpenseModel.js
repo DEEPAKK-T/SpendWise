@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize")
 const sequelize = require("../Db/database")
 
 
-const ExpenseModel = sequelize.define("spendwise", {
+const ExpenseModel = sequelize.define("expenses", {
     date: {
         type: DataTypes.DATE,
         allowNull: false,
