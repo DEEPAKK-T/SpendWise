@@ -1,12 +1,12 @@
 // const { Client } = require("pg")
+const Config = require("../Config/config")
 
 //ORM like Sequelize (Object Relational Mapping) ==> Representing database tables as javascript objects
-// const { DataTypes } = require("sequilize")
 const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize('spendwise', 'postgres', 'deepak123', {
-    host: 'localhost',
-    dialect: 'postgres',
+const sequelize = new Sequelize(Config.DBNAME, Config.USERNAME, Config.PASSWORD, {
+    host: Config.HOST,
+    dialect: Config.dialect,
   });
 
   //it will drop and recreate the table : Be cautious in Prod env

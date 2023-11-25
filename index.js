@@ -9,7 +9,7 @@ const Utils = require("./Utils/Util")
 Db.sequelize;
 
 
-http.createServer(async function (req, res) {
+server = http.createServer(async function (req, res) {
 
     //GET /api/expenses
     if (req.url == "/api/expenses" && req.method == "GET") {
@@ -21,11 +21,8 @@ http.createServer(async function (req, res) {
         res.end(JSON.stringify(getAllExpenses));
         //GET /api/expenses/:id
     } else if (req.url.match(/\/api\/expenses\/([a-f0-9-]+)$/i) && req.method == "GET") {
-
-        console.log("Get expense by ID")
-
         try {
-            //get the id of from the endpoint
+            //get the id from the endpoint
             const id = req.url.split("/")[3]
             const getExpenseByID = await ExpenseController.getExpensesByID(id);
             // set the status code and content-type
@@ -33,7 +30,7 @@ http.createServer(async function (req, res) {
             res.end(JSON.stringify(getExpenseByID));
         } catch (error) {
             res.writeHead(404, { "Content-Type": "application/json" })
-            res.end(JSON.stringify({ message: error }))
+            res.end(JSON.stringify({ message: error.message }))
         }
         //POST /api/expenses
     } else if (req.url == "/api/expenses" && req.method == "POST") {
@@ -60,7 +57,7 @@ http.createServer(async function (req, res) {
 
         } catch (error) {
             res.writeHead(404, { "Content-Type": "application/json" })
-            res.end(JSON.stringify({ message: error }))
+            res.end(JSON.stringify({ message: error.message }))
 
         }
         //DELETE /api/expenses/:id
@@ -76,13 +73,16 @@ http.createServer(async function (req, res) {
 
         } catch (error) {
             res.writeHead(404, { "Content-Type": "application/json" })
-            res.end(JSON.stringify({ message: error }))
+            res.end(JSON.stringify({message: error.message}))
 
         }
     } else {
-        res.writeHead(200, { "Content-Type": "application/json" });
+        res.writeHead(404, { "Content-Type": "application/json" });
         res.end({ "message": "Route Not Found" });
     }
-}).listen(8080, () => {
+});
+
+
+server.listen(8080, () => {
     console.log("Server listening on PORT 8080")
 })

@@ -1,5 +1,4 @@
 const ExpenseModel = require('../Models/ExpenseModel');
-//./Controllers/ExpenseController
 
 
 async function getExpenses(){
@@ -11,6 +10,9 @@ async function getExpenses(){
 async function getExpensesByID(id){
     //Code to get expense by ID
     const expensebyId = await ExpenseModel.findByPk(id);
+    if(!expensebyId){
+        throw new Error("Expense not found")
+    }
     return expensebyId;
 }
 
@@ -34,16 +36,21 @@ async function updateExpense(id, newData){
 }
 
 async function deleteExpense(id){
+
+    const expenseData = await ExpenseModel.findByPk(id)
+    if(!expenseData){
+        throw new Error("Expense with this ID doesn't found");
+    }
     //code to delete expense
     const deletedExpense = await ExpenseModel.destroy({
         where: { id },
     });
 
-    if(!deleteExpense){
+    if(!deletedExpense){
         throw new Error("Expense not found");
     }
 
-    return deleteExpense;
+    return deletedExpense;
 }
 
 
