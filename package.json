@@ -26,6 +26,7 @@
   "dependencies": {
     "crypto-js": "^4.2.0",
     "js-sha256": "^0.10.1",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.3",
     "sequelize": "^6.35.1"
   }
