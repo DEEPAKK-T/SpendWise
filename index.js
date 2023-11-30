@@ -6,8 +6,11 @@ const UserController = require("./Controllers/UsersController")
 const LoginController = require("./Controllers/LoginController")
 const jwt = require("jsonwebtoken")
 const authenticateJwt = require("./Middleware/AuthenticateJwt")
+require("dotenv").config()
 
 // const database = new Database()
+
+const port = process.env.PORT || 8080
 
 //connecting to PostgreSQL
 Db.sequelize;
@@ -135,18 +138,22 @@ server = http.createServer(async function (req, res) {
                     res.end(JSON.stringify({
                         message: "Username should contain atleast 3 characters"
                     }))
+                    return
                 } else if (username.length > 16) {
                     res.writeHead(400, { "Content-Type": "application/json" })
                     res.end(JSON.stringify({
                         message: "More that 15 characters are not allowed for username"
                     }))
+                    return
                 } else if (username.indexOf(" ") >= 0) {
                     res.writeHead(400, { "Content-Type": "application/json" })
                     res.end(JSON.stringify({ message: "White spaces are not allowed for username" }))
+                    return
                 }
                 else if (specialChars.test(username)) {
                     res.writeHead(400, { "Content-Type": "application/json" })
                     res.end(JSON.stringify({ message: "Special Characters are not allowed for username" }))
+                    return
                 }
                 const createUser = await UserController.CreateNewUser(userData);
                 // set the status code and content-type
@@ -218,6 +225,6 @@ server = http.createServer(async function (req, res) {
 });
 
 
-server.listen(8080, () => {
-    console.log("Server listening on PORT 8080")
+server.listen(port, () => {
+    console.log("Server listening on PORT ", port)
 })

@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken")
 
+require("dotenv").config()
+
 
 const authenticateJwt = (req, res, next) => {
 
@@ -11,7 +13,7 @@ const authenticateJwt = (req, res, next) => {
 
     const accessToken = token.split(' ')[1];
 
-    jwt.verify(accessToken, 'iuy7uyiu7yiu', (err, user) => {
+    jwt.verify(accessToken, process.env.SECRET_KEY, (err, user) => {
         if (err) {
             return res.writeHead(403, { 'Content-Type': 'application/json' }).end(JSON.stringify({ message: 'Forbidden' }));
         }

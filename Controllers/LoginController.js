@@ -1,6 +1,7 @@
 const UsersModel = require("../Models/UserModel")
 const crypto = require('crypto-js');
 const jwt = require("jsonwebtoken")
+require("dotenv").config();
 
 
 async function Login(loggedInUserData){
@@ -21,7 +22,7 @@ async function Login(loggedInUserData){
         throw new Error("Invalid Password. Please login with Valid Password")
     }
     const expiresIn = '1h';
-    const accessToken = jwt.sign({id: getUser.id, username: getUser.username}, "iuy7uyiu7yiu", {
+    const accessToken = jwt.sign({id: getUser.id, username: getUser.username}, process.env.SECRET_KEY, {
             expiresIn: expiresIn, //Token Expiration time
     })
     console.log("Access Token", accessToken)
