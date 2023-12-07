@@ -1,5 +1,5 @@
 // const { Client } = require("pg")
-const Config = require("../Config/config")
+const Config = require("../config/config")
 
 //ORM like Sequelize (Object Relational Mapping) ==> Representing database tables as javascript objects
 const Sequelize = require("sequelize");

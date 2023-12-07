@@ -1,11 +1,11 @@
 const http = require("http")
-const Db = require("./Db/database")
-const ExpenseController = require("./Controllers/ExpenseController")
-const Utils = require("./Utils/Util")
-const UserController = require("./Controllers/UsersController")
-const LoginController = require("./Controllers/LoginController")
+const Db = require("./db/database")
+const ExpenseController = require("./controllers/expense.controller")
+const Utils = require("./utils/util")
+const UserController = require("./controllers/users.controller")
+const LoginController = require("./controllers/auth.controller")
 const jwt = require("jsonwebtoken")
-const authenticateJwt = require("./Middleware/AuthenticateJwt")
+const authenticateJwt = require("./middleware/authenticatejwt")
 require("dotenv").config()
 
 // const database = new Database()
@@ -130,35 +130,35 @@ server = http.createServer(async function (req, res) {
             break;
         //POST /api/users
         case req.url == "/api/users" && req.method == "POST":
-                const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-                const userData = await Utils.getRequestData(req);
-                const username = userData.username;
-                if (username.length < 3) {
-                    res.writeHead(400, { "Content-Type": "application/json" })
-                    res.end(JSON.stringify({
-                        message: "Username should contain atleast 3 characters"
-                    }))
-                    return
-                } else if (username.length > 16) {
-                    res.writeHead(400, { "Content-Type": "application/json" })
-                    res.end(JSON.stringify({
-                        message: "More that 15 characters are not allowed for username"
-                    }))
-                    return
-                } else if (username.indexOf(" ") >= 0) {
-                    res.writeHead(400, { "Content-Type": "application/json" })
-                    res.end(JSON.stringify({ message: "White spaces are not allowed for username" }))
-                    return
-                }
-                else if (specialChars.test(username)) {
-                    res.writeHead(400, { "Content-Type": "application/json" })
-                    res.end(JSON.stringify({ message: "Special Characters are not allowed for username" }))
-                    return
-                }
-                const createUser = await UserController.CreateNewUser(userData);
-                // set the status code and content-type
-                res.writeHead(201, { "Content-Type": "application/json" });
-                res.end(JSON.stringify(createUser));
+            const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+            const userData = await Utils.getRequestData(req);
+            const username = userData.username;
+            if (username.length < 3) {
+                res.writeHead(400, { "Content-Type": "application/json" })
+                res.end(JSON.stringify({
+                    message: "Username should contain atleast 3 characters"
+                }))
+                return
+            } else if (username.length > 16) {
+                res.writeHead(400, { "Content-Type": "application/json" })
+                res.end(JSON.stringify({
+                    message: "More that 15 characters are not allowed for username"
+                }))
+                return
+            } else if (username.indexOf(" ") >= 0) {
+                res.writeHead(400, { "Content-Type": "application/json" })
+                res.end(JSON.stringify({ message: "White spaces are not allowed for username" }))
+                return
+            }
+            else if (specialChars.test(username)) {
+                res.writeHead(400, { "Content-Type": "application/json" })
+                res.end(JSON.stringify({ message: "Special Characters are not allowed for username" }))
+                return
+            }
+            const createUser = await UserController.CreateNewUser(userData);
+            // set the status code and content-type
+            res.writeHead(201, { "Content-Type": "application/json" });
+            res.end(JSON.stringify(createUser));
             break;
         //GET /api/users
         case req.url == "/api/users" && req.method == "GET":
@@ -197,7 +197,7 @@ server = http.createServer(async function (req, res) {
                     // set the status code and content-type
                     res.writeHead(200, { "Content-Type": "application/json" });
                     res.end(JSON.stringify({ "message": "User deleted successfully", id: userId }));
-    
+
                 } catch (error) {
                     res.writeHead(404, { "Content-Type": "application/json" });
                     res.end(JSON.stringify({ "message": error.message }))

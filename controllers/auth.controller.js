@@ -1,4 +1,4 @@
-const UsersModel = require("../Models/UserModel")
+const UsersModel = require("../models/user.model")
 const crypto = require('crypto-js');
 const jwt = require("jsonwebtoken")
 require("dotenv").config();
