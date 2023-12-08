@@ -1,11 +1,11 @@
 const http = require("http")
 const Db = require("./db/database")
 const ExpenseController = require("./controllers/expense.controller")
-const Utils = require("./utils-temp/util-temp")
+const Utils = require("./utils/util")
 const UserController = require("./controllers/users.controller")
 const LoginController = require("./controllers/auth.controller")
 const jwt = require("jsonwebtoken")
-const authenticateJwt = require("./middleware-temp/authenticate.jwt")
+const authenticateJwt = require("./middleware/authenticate.jwt")
 require("dotenv").config()
 
 // const database = new Database()
