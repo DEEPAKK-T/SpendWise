@@ -1,5 +1,5 @@
 const http = require("http")
-const Db = require("./db-temp/database")
+const Db = require("./db/database")
 const ExpenseController = require("./controllers/expense.controller")
 const Utils = require("./utils-temp/util-temp")
 const UserController = require("./controllers/users.controller")
