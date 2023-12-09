@@ -45,7 +45,7 @@ async function UpdateUser(userId, newData, loggedInUserData) {
 async function DeleteUser(id, loggedInUserData) {
 
     //check if user exists
-    const getUser = await UsersModel.findByPk(userId);
+    const getUser = await UsersModel.findByPk(id);
 
     if (!getUser) {
         throw new Error("User not found")
