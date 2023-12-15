@@ -5,6 +5,7 @@ const UserModel = sequelize.define("users", {
     username : {
         type : DataTypes.STRING,
         allowNull : false,
+        unique: true,
     },
     password : {
         type : DataTypes.STRING,
@@ -16,6 +17,7 @@ const UserModel = sequelize.define("users", {
         validate: {
             isEmail: true, // built-in isEmail validator for basic email format validation
           },
+          unique: true,
     },
     usertype : {
         type : DataTypes.STRING,

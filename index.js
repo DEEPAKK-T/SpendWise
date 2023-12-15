@@ -140,12 +140,12 @@ server = http.createServer(async function (req, res) {
             res.end(JSON.stringify(createUser));
 
             }catch(error){
-                if(error.message.startsWith("Bad Request")){
+                if(error.message.startsWith("Bad Request") || error.message.startsWith("Validation")){
                     res.writeHead(400, { "Content-Type": "application/json" });
                 } else {
                     res.writeHead(404, { "Content-Type": "application/json"});
                 }
-                res.end(JSON.stringify({ "message": error.message }))
+                res.end(JSON.stringify({ "message": error.message === "Validation error" ? "Validation error : username or email already taken" : error.message }))
 
             }
             break;
