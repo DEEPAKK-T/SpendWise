@@ -213,7 +213,7 @@ server = http.createServer(async function (req, res) {
             break;
         default:
             res.writeHead(404, { "Content-Type": "application/json" });
-            res.end({ "message": "Route Not Found" });
+            res.end(JSON.stringify({ "message": "Route Not Found" }));
     }
 });
 
