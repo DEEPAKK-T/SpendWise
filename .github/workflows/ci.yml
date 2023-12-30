@@ -34,9 +34,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Log in as root
-      run: sudo su -
-      
     - name: Deploy to EC2
       uses: appleboy/ssh-action@master
       with:
@@ -45,6 +42,7 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
           # Navigate to the directory where your code is located on EC2
+          sudo su -
           cd /root/SpendWise/
 
           # Pull the latest changes from the repository
