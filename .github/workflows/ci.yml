@@ -52,4 +52,4 @@ jobs:
 
           # Restart your application or execute any other deployment steps
           # Example for Node.js application
-          nohup node index.js > app.log 2>&1 & echo $! > app.pid && sleep 10
+          pm2 restart index.js
