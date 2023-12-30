@@ -42,7 +42,7 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
           # Navigate to the directory where your code is located on EC2
-          sudo su -
+          sudo -i
           mkdir spend
           cd spend
 
