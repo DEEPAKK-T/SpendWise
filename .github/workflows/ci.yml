@@ -51,6 +51,9 @@ jobs:
           # Example for Node.js application
           pm2 restart index.js
 
+          # Sleep for 5 secs before moving to the next steps
+          sleep 5
+
           # Navigate to the directory where your code is located on EC2
           cd SpendWise2/SpendWise
 
