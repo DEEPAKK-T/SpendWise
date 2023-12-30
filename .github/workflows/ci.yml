@@ -43,7 +43,8 @@ jobs:
         script: |
           # Navigate to the directory where your code is located on EC2
           sudo su -
-          cd /root/SpendWise/
+          mkdir spend
+          cd spend
 
           # Pull the latest changes from the repository
           git pull origin main
