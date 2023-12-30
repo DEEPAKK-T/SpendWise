@@ -75,11 +75,34 @@ async function deleteExpense(id, loggedInUserData) {
     return deletedExpense;
 }
 
+async function getTotalExpenses(loggedInUserData) {
+    //get total expenses
+    var totalExpense = 0;
+    if (loggedInUserData.usertype === "admin") {
+        const expenses = await ExpenseModel.findAll();
+        expenses.forEach(element => {
+            totalExpense = totalExpense + element.amount 
+        });
+        return totalExpense;
+    }
+    //get total expenses by loggedIn user
+    const expenses = await ExpenseModel.findAll({
+        where: {
+            paidBy: loggedInUserData.username,
+        },
+    });
+    expenses.forEach(element => {
+        totalExpense = totalExpense + element.amount 
+    });
+    return totalExpense;
+}
+
 
 module.exports = {
     getExpenses,
     getExpensesByID,
     createExpenses,
     updateExpense,
-    deleteExpense
+    deleteExpense,
+    getTotalExpenses
 }

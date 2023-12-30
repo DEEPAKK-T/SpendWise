@@ -25,7 +25,6 @@ async function Login(loggedInUserData){
     const accessToken = jwt.sign({id: getUser.id, username: getUser.username, usertype: getUser.usertype}, process.env.SECRET_KEY, {
             expiresIn: expiresIn, //Token Expiration time
     })
-    console.log("Access Token", accessToken)
     return {accessToken, expiresIn};
 
 }

@@ -106,6 +106,18 @@ server = http.createServer(async function (req, res) {
 
             })
             break;
+            case req.url == "/api/expenses/total" && req.method == "GET":
+
+            authenticateJwt(req, res, async () => {
+
+                const getTotalExpenses = await ExpenseController.getTotalExpenses(req.user)
+                //setting status code and content-type
+                res.writeHead(200, { "Content-Type": "application/json" });
+                //send the data
+                res.end(JSON.stringify({totalExpenses : getTotalExpenses}));
+
+            })
+            break;
         //POST /api/users
         case req.url == "/api/users" && req.method == "POST":
             try{
