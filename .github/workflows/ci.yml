@@ -50,3 +50,13 @@ jobs:
           # Restart your application or execute any other deployment steps
           # Example for Node.js application
           pm2 restart index.js
+
+          # Navigate to the directory where your code is located on EC2
+          cd SpendWise2/SpendWise
+
+          # Pull the latest changes from the repository
+          git pull origin main
+
+          # Restart your application or execute any other deployment steps
+          # Example for Node.js application
+          pm2 restart index.js
